@@ -1,17 +1,19 @@
-// ECHTE EMAIL FORMULIER HANDLER - OVERSCHRIJFT ALLE OUDE CODE
-console.log('🔥 ECHTE formulier handler geladen - vervangt ALLE oude handlers!');
+// ECHTE EMAIL FORMULIER HANDLER - BEHOUDT DROPDOWN FUNCTIONALITEIT
+console.log('🔥 Email handler geladen - behoudt alle form interactie!');
 
-// Forceer overschrijven van alle bestaande JavaScript
+// Wacht tot alles geladen is voordat we wijzigingen maken
 window.addEventListener('load', function() {
-  console.log('🚀 Overschrijf ALLE bestaande form handlers...');
-  setTimeout(initializeFormHandlers, 100); // Wacht even zodat alle oude code geladen is
+  console.log('🚀 Initialiseer email handlers...');
+  setTimeout(initializeFormHandlers, 500); // Meer tijd voor volledige loading
 });
 
-// Wacht tot DOM geladen is
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeFormHandlers);
-} else {
-  initializeFormHandlers();
+// Backup voor als load event al gefired is
+if (document.readyState === 'complete') {
+  setTimeout(initializeFormHandlers, 100);
+} else if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initializeFormHandlers, 300);
+  });
 }
 
 function initializeFormHandlers() {
@@ -21,54 +23,53 @@ function initializeFormHandlers() {
   const errorDivs = document.querySelectorAll('[style*="background-color: rgb(248, 113, 113)"], .bg-red-500, .text-red-500, [style*="color: rgb(239, 68, 68)"]');
   errorDivs.forEach(div => div.remove());
   
-  // FORCEER verwijdering van alle rode berichten
+  // VOORZICHTIGE verwijdering van alleen echte error berichten
   setInterval(() => {
-    const allErrors = document.querySelectorAll('div[style*="rgb(248, 113, 113)"], div[style*="rgb(239, 68, 68)"]');
-    allErrors.forEach(el => {
-      console.log('🚫 Verwijder rode error:', el.textContent);
-      el.remove();
+    const errorMessages = document.querySelectorAll('div[style*="rgb(248, 113, 113)"]');
+    errorMessages.forEach(el => {
+      if (el.textContent && (el.textContent.includes('Fout bij') || el.textContent.includes('Er is een fout'))) {
+        console.log('🚫 Verwijder specifieke error:', el.textContent);
+        el.remove();
+      }
     });
-  }, 100);
+  }, 200);
   
   // Vervang ALLE bestaande form handlers
   const allForms = document.querySelectorAll('form');
   console.log(`📋 Gevonden ${allForms.length} formulieren`);
   
   allForms.forEach((form, index) => {
-    // Verwijder oude event listeners volledig
-    const newForm = form.cloneNode(true);
-    form.parentNode.replaceChild(newForm, form);
-    
-    // Verwijder alle onclick handlers
-    newForm.removeAttribute('onsubmit');
-    const allElements = newForm.querySelectorAll('*');
-    allElements.forEach(el => {
-      el.removeAttribute('onclick');
-      el.removeAttribute('onsubmit');
-    });
+    // ALLEEN submit handlers vervangen, NIET de vorm clonen
+    // Dit behoudt alle dropdown functionaliteit
     
     // Detecteer formulier type
-    const submitBtn = newForm.querySelector('button[type="submit"], input[type="submit"], button:not([type])');
+    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"], button:not([type])');
     const buttonText = submitBtn ? (submitBtn.textContent || submitBtn.value || '').toLowerCase() : '';
     
     console.log(`📋 Formulier ${index + 1}: "${buttonText}"`);
     
+    // Verwijder ALLEEN onsubmit attributen
+    form.removeAttribute('onsubmit');
+    if (submitBtn) {
+      submitBtn.removeAttribute('onclick');
+    }
+    
     // Contact formulier
     if (buttonText.includes('verstuur') || buttonText.includes('contact') || buttonText.includes('bericht')) {
       console.log('✅ Contact formulier gedetecteerd');
-      newForm.addEventListener('submit', handleContactSubmit);
+      form.addEventListener('submit', handleContactSubmit);
     }
     
     // Aanmelding formulier  
     if (buttonText.includes('aanmelding') || buttonText.includes('verzenden') || buttonText.includes('afsluiten')) {
       console.log('✅ Aanmelding formulier gedetecteerd');
-      newForm.addEventListener('submit', handleRegistrationSubmit);
+      form.addEventListener('submit', handleRegistrationSubmit);
     }
     
     // Fallback: alle overige formulieren als contact
     if (!buttonText.includes('verstuur') && !buttonText.includes('aanmelding') && !buttonText.includes('verzenden')) {
       console.log('⚡ Fallback: behandel als contact formulier');
-      newForm.addEventListener('submit', handleContactSubmit);
+      form.addEventListener('submit', handleContactSubmit);
     }
   });
   
