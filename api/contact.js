@@ -22,27 +22,38 @@ export default async function handler(req, res) {
       });
     }
 
-    // Log the form submission (in production, you'd send this to your email service)
-    console.log('📧 Contact Form Submission:', {
+    // ECHTE EMAIL VERSTUREN naar info@xenra.nl
+    const emailData = {
       timestamp: new Date().toLocaleString('nl-NL'),
       naam,
       email,
       telefoon: telefoon || 'Niet opgegeven',
       typeAanvraag,
       bericht
+    };
+    
+    console.log('📧 Contact Form Submission:', emailData);
+
+    // Verstuur email via FormSubmit service (gratis en betrouwbaar)
+    const formSubmitResponse = await fetch('https://formsubmit.co/info@xenra.nl', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: naam,
+        email: email,
+        phone: telefoon || 'Niet opgegeven',
+        type: typeAanvraag,
+        message: bericht,
+        _subject: `Nieuw contactbericht van ${naam} - ${typeAanvraag}`,
+        _template: 'table'
+      })
     });
 
-    // Here you would integrate with your email service
-    // For now, we'll simulate successful email sending
-    
-    // In production, add your email service integration here:
-    // await sendEmailToXenra({
-    //   from: email,
-    //   naam,
-    //   telefoon,
-    //   typeAanvraag,
-    //   bericht
-    // });
+    if (!formSubmitResponse.ok) {
+      throw new Error('Email service failed');
+    }
 
     return res.status(200).json({ 
       success: true, 

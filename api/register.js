@@ -50,8 +50,8 @@ export default async function handler(req, res) {
       });
     }
 
-    // Log the registration (in production, you'd save this to database and send email)
-    console.log('📋 Aanmelding Direct Afsluiten:', {
+    // ECHTE EMAIL VERSTUREN naar info@xenra.nl
+    const registrationData = {
       timestamp: new Date().toLocaleString('nl-NL'),
       naam: `${firstName} ${lastName}`,
       email,
@@ -60,20 +60,32 @@ export default async function handler(req, res) {
       geboortedatum: dateOfBirth,
       pakket: selectedPackage,
       maandBedrag: monthlyAmount
+    };
+    
+    console.log('📋 Aanmelding Direct Afsluiten:', registrationData);
+
+    // Verstuur aanmelding email via FormSubmit service
+    const formSubmitResponse = await fetch('https://formsubmit.co/info@xenra.nl', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`,
+        email: email,
+        phone: cleanPhone,
+        address: `${address || ''}, ${postalCode || ''} ${city || ''}`.trim(),
+        birthdate: dateOfBirth,
+        package: selectedPackage,
+        monthly_amount: monthlyAmount,
+        _subject: `Nieuwe aanmelding: ${firstName} ${lastName} - ${selectedPackage} pakket`,
+        _template: 'table'
+      })
     });
 
-    // Here you would:
-    // 1. Save registration to database
-    // 2. Send confirmation email to customer
-    // 3. Send notification email to info@xenra.nl
-    
-    // In production, add your email service integration here:
-    // await sendRegistrationEmails({
-    //   customerEmail: email,
-    //   customerName: `${firstName} ${lastName}`,
-    //   package: selectedPackage,
-    //   monthlyAmount
-    // });
+    if (!formSubmitResponse.ok) {
+      throw new Error('Email service failed');
+    }
 
     return res.status(200).json({ 
       success: true, 
