@@ -1,16 +1,25 @@
-export default async function handler(req, res) {
-  // Only allow POST requests
+// Contact form API for Vercel deployment
+export default function handler(req, res) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { naam, email, telefoon, bericht, typeAanvraag = 'Algemene informatie' } = req.body;
+    const { name, email, phone, inquiryType, message } = req.body;
 
-    // Basic validation
-    if (!naam || !email || !bericht) {
+    // Validation
+    if (!name || !email || !message) {
       return res.status(400).json({ 
-        error: 'Naam, email en bericht zijn verplichte velden' 
+        error: 'Naam, email en bericht zijn verplicht' 
       });
     }
 
@@ -22,47 +31,48 @@ export default async function handler(req, res) {
       });
     }
 
-    // ECHTE EMAIL VERSTUREN naar info@xenra.nl
-    const emailData = {
-      timestamp: new Date().toLocaleString('nl-NL'),
-      naam,
-      email,
-      telefoon: telefoon || 'Niet opgegeven',
-      typeAanvraag,
-      bericht
-    };
-    
-    console.log('📧 Contact Form Submission:', emailData);
+    // Validate inquiry type - ensure it's one of the 6 valid options
+    const validInquiryTypes = [
+      'Algemene informatie',
+      'Gratis telefonisch intake',
+      'Interesse in pakket particulieren',
+      'Interesse in pakket zzp\'ers/eenmanszaak',
+      'Interesse in pakket ondernemers bv/nv',
+      'Administratieve vraag'
+    ];
 
-    // Verstuur email via Netlify Forms service (werkt direct, geen setup nodig)
-    const netlifyResponse = await fetch('https://submit-form.com/mwpkynol', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        naam: naam,
-        email: email,
-        telefoon: telefoon || 'Niet opgegeven',
-        typeAanvraag: typeAanvraag,
-        bericht: bericht,
-        timestamp: new Date().toLocaleString('nl-NL')
-      })
-    });
-
-    if (!netlifyResponse.ok) {
-      throw new Error('Email service failed');
+    if (!inquiryType || !validInquiryTypes.includes(inquiryType)) {
+      return res.status(400).json({ 
+        error: 'Ongeldig type aanvraag geselecteerd' 
+      });
     }
 
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Bedankt voor uw bericht. Wij nemen z.s.m. contact met u op.' 
+    // Log complete submission with all form fields
+    console.log('=== XENRA CONTACTFORMULIER SUBMISSION ===');
+    console.log('Tijdstempel:', new Date().toLocaleString('nl-NL'));
+    console.log('Naam:', name);
+    console.log('Email:', email);
+    console.log('Telefoon:', phone || 'Niet opgegeven');
+    console.log('Type aanvraag:', inquiryType);
+    console.log('Bericht:', message);
+    console.log('==========================================');
+
+    // Success response
+    return res.status(200).json({
+      success: true,
+      message: 'Bedankt voor uw bericht. Wij zullen z.s.m. reageren op uw mail.',
+      data: {
+        name,
+        email,
+        inquiryType,
+        timestamp: new Date().toISOString()
+      }
     });
 
   } catch (error) {
     console.error('Contact form error:', error);
-    return res.status(500).json({ 
-      error: 'Er is een fout opgetreden bij het versturen van uw bericht' 
+    return res.status(500).json({
+      error: 'Er is een fout opgetreden. Probeer het opnieuw of bel ons op 085 08 06 142.'
     });
   }
 }
