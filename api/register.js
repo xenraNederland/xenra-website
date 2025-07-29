@@ -64,26 +64,26 @@ export default async function handler(req, res) {
     
     console.log('📋 Aanmelding Direct Afsluiten:', registrationData);
 
-    // Verstuur aanmelding email via FormSubmit service
-    const formSubmitResponse = await fetch('https://formsubmit.co/info@xenra.nl', {
+    // Verstuur aanmelding email via directe service
+    const emailResponse = await fetch('https://submit-form.com/mwpkynol', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: `${firstName} ${lastName}`,
+        type: 'AANMELDING',
+        naam: `${firstName} ${lastName}`,
         email: email,
-        phone: cleanPhone,
-        address: `${address || ''}, ${postalCode || ''} ${city || ''}`.trim(),
-        birthdate: dateOfBirth,
-        package: selectedPackage,
-        monthly_amount: monthlyAmount,
-        _subject: `Nieuwe aanmelding: ${firstName} ${lastName} - ${selectedPackage} pakket`,
-        _template: 'table'
+        telefoon: cleanPhone,
+        adres: `${address || ''}, ${postalCode || ''} ${city || ''}`.trim(),
+        geboortedatum: dateOfBirth,
+        pakket: selectedPackage,
+        maandBedrag: monthlyAmount,
+        timestamp: new Date().toLocaleString('nl-NL')
       })
     });
 
-    if (!formSubmitResponse.ok) {
+    if (!emailResponse.ok) {
       throw new Error('Email service failed');
     }
 

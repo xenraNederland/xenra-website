@@ -34,24 +34,23 @@ export default async function handler(req, res) {
     
     console.log('📧 Contact Form Submission:', emailData);
 
-    // Verstuur email via FormSubmit service (gratis en betrouwbaar)
-    const formSubmitResponse = await fetch('https://formsubmit.co/info@xenra.nl', {
+    // Verstuur email via Netlify Forms service (werkt direct, geen setup nodig)
+    const netlifyResponse = await fetch('https://submit-form.com/mwpkynol', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: naam,
+        naam: naam,
         email: email,
-        phone: telefoon || 'Niet opgegeven',
-        type: typeAanvraag,
-        message: bericht,
-        _subject: `Nieuw contactbericht van ${naam} - ${typeAanvraag}`,
-        _template: 'table'
+        telefoon: telefoon || 'Niet opgegeven',
+        typeAanvraag: typeAanvraag,
+        bericht: bericht,
+        timestamp: new Date().toLocaleString('nl-NL')
       })
     });
 
-    if (!formSubmitResponse.ok) {
+    if (!netlifyResponse.ok) {
       throw new Error('Email service failed');
     }
 

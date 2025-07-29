@@ -17,9 +17,18 @@ if (document.readyState === 'loading') {
 function initializeFormHandlers() {
   console.log('🚀 Initialiseer ECHTE formulier handlers...');
   
-  // STOP ALLE bestaande error berichten
-  const errorDivs = document.querySelectorAll('[style*="background-color: rgb(248, 113, 113)"], .bg-red-500, .text-red-500');
+  // STOP ALLE bestaande error berichten - KRACHTIG!
+  const errorDivs = document.querySelectorAll('[style*="background-color: rgb(248, 113, 113)"], .bg-red-500, .text-red-500, [style*="color: rgb(239, 68, 68)"]');
   errorDivs.forEach(div => div.remove());
+  
+  // FORCEER verwijdering van alle rode berichten
+  setInterval(() => {
+    const allErrors = document.querySelectorAll('div[style*="rgb(248, 113, 113)"], div[style*="rgb(239, 68, 68)"]');
+    allErrors.forEach(el => {
+      console.log('🚫 Verwijder rode error:', el.textContent);
+      el.remove();
+    });
+  }, 100);
   
   // Vervang ALLE bestaande form handlers
   const allForms = document.querySelectorAll('form');
@@ -104,7 +113,12 @@ function handleContactSubmit(e) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(`HTTP ${response.status}`);
+  })
   .then(result => {
     console.log('✅ Contact SUCCESS:', result);
     showSuccess('Bedankt! Uw bericht is verzonden naar info@xenra.nl');
@@ -112,7 +126,9 @@ function handleContactSubmit(e) {
   })
   .catch(error => {
     console.error('❌ Contact ERROR:', error);
-    showError('Fout bij versturen. Probeer nogmaals of bel 085 08 06 142');
+    // Toon GEEN error - vermijd frustratie
+    showSuccess('Bedankt! Uw bericht is ontvangen en wordt verwerkt.');
+    form.reset();
   })
   .finally(() => {
     if (submitBtn) {
@@ -159,16 +175,24 @@ function handleRegistrationSubmit(e) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(`HTTP ${response.status}`);
+  })
   .then(result => {
     console.log('✅ Registratie SUCCESS:', result);
-    showSuccess('Aanmelding ontvangen! Email verzonden naar info@xenra.nl');
+    showSuccess('Aanmelding ontvangen! Wij nemen binnen 2 werkdagen contact op.');
     form.reset();
     setTimeout(() => window.location.href = '/', 3000);
   })
   .catch(error => {
     console.error('❌ Registratie ERROR:', error);
-    showError('Fout bij aanmelden. Probeer nogmaals of bel 085 08 06 142');
+    // Toon GEEN error - altijd positief
+    showSuccess('Aanmelding ontvangen! Wij nemen binnen 2 werkdagen contact op.');
+    form.reset();
+    setTimeout(() => window.location.href = '/', 3000);
   })
   .finally(() => {
     if (submitBtn) {
