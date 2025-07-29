@@ -57,6 +57,40 @@ export default function handler(req, res) {
     console.log('Bericht:', message);
     console.log('==========================================');
 
+    // Send email to info@xenra.nl (simplified email sending)
+    try {
+      // Create email content
+      const emailSubject = `Nieuw contactformulier: ${inquiryType}`;
+      const emailBody = `
+Nieuwe aanvraag via xenra.nl contactformulier
+
+Naam: ${name}
+Email: ${email}
+Telefoon: ${phone || 'Niet opgegeven'}
+Type aanvraag: ${inquiryType}
+
+Bericht:
+${message}
+
+---
+Verzonden op: ${new Date().toLocaleString('nl-NL')}
+Via: Xenra Nederland Website
+`;
+
+      // Use Vercel's fetch to send email (you can replace this with actual email service)
+      // For now, log the email that should be sent
+      console.log('EMAIL TO SEND TO info@xenra.nl:');
+      console.log('Subject:', emailSubject);
+      console.log('Body:', emailBody);
+      
+      // You can add actual email service like SendGrid, Nodemailer, etc. here
+      // For production, integrate with your preferred email service
+      
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError);
+      // Continue even if email fails
+    }
+
     // Success response
     return res.status(200).json({
       success: true,
