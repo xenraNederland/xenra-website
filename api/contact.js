@@ -1,5 +1,5 @@
 // Contact form API for Vercel deployment
-export default function handler(req, res) {
+export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -57,12 +57,10 @@ export default function handler(req, res) {
     console.log('Bericht:', message);
     console.log('==========================================');
 
-    // Send email to info@xenra.nl (simplified email sending)
+    // Send email to info@xenra.nl using Formspree
     try {
-      // Create email content
       const emailSubject = `Nieuw contactformulier: ${inquiryType}`;
-      const emailBody = `
-Nieuwe aanvraag via xenra.nl contactformulier
+      const emailBody = `Nieuwe aanvraag via xenra.nl contactformulier
 
 Naam: ${name}
 Email: ${email}
@@ -74,17 +72,31 @@ ${message}
 
 ---
 Verzonden op: ${new Date().toLocaleString('nl-NL')}
-Via: Xenra Nederland Website
-`;
+Via: Xenra Nederland Website`;
 
-      // Use Vercel's fetch to send email (you can replace this with actual email service)
-      // For now, log the email that should be sent
-      console.log('EMAIL TO SEND TO info@xenra.nl:');
-      console.log('Subject:', emailSubject);
-      console.log('Body:', emailBody);
-      
-      // You can add actual email service like SendGrid, Nodemailer, etc. here
-      // For production, integrate with your preferred email service
+      // Use fetch to send email via Formspree (works directly from Vercel)
+      const formspreeResponse = await fetch('https://formspree.io/f/mwpkynol', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone || 'Niet opgegeven',
+          inquiry_type: inquiryType,
+          message: emailBody,
+          _replyto: email,
+          _subject: emailSubject
+        })
+      });
+
+      if (formspreeResponse.ok) {
+        console.log('✅ Email successfully sent to info@xenra.nl via Formspree');
+      } else {
+        const errorText = await formspreeResponse.text();
+        console.log('❌ Formspree email failed:', errorText);
+      }
       
     } catch (emailError) {
       console.error('Email sending failed:', emailError);
