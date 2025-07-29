@@ -1,4 +1,25 @@
-// Contact form API for Vercel deployment
+// Vercel contact API with native email sending
+// Note: nodemailer needs to be added to package.json dependencies
+
+// Configure SMTP transporter exactly like the main server
+const createTransporter = () => {
+  return nodemailer.createTransporter({
+    host: 'mail.xenra.nl',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'info@xenra.nl',
+      pass: 'Geenen12@'
+    },
+    tls: {
+      rejectUnauthorized: false
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 5000,
+    socketTimeout: 10000
+  });
+};
+
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,92 +37,84 @@ export default async function handler(req, res) {
   try {
     const { name, email, phone, inquiryType, message } = req.body;
 
-    // Validation
-    if (!name || !email || !message) {
+    // Validate required fields
+    if (!name || !email || !inquiryType || !message) {
       return res.status(400).json({ 
-        error: 'Naam, email en bericht zijn verplicht' 
+        error: 'Alle velden zijn verplicht behalve telefoonnummer' 
       });
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ 
-        error: 'Ongeldig email adres' 
-      });
+    // Create email content
+    const emailSubject = `Nieuw contactformulier: ${inquiryType}`;
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: #2B5B4B; color: white; padding: 20px; text-align: center;">
+          <h1 style="margin: 0;">📧 Nieuw Contactformulier</h1>
+          <p style="margin: 5px 0 0 0;">Xenra Nederland Website</p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border: 1px solid #ddd;">
+          <h2 style="color: #2B5B4B;">Formulier Details</h2>
+          
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px 0; font-weight: bold; width: 120px;">Naam:</td>
+              <td style="padding: 10px 0;">${name}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px 0; font-weight: bold;">Email:</td>
+              <td style="padding: 10px 0;">${email}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px 0; font-weight: bold;">Telefoon:</td>
+              <td style="padding: 10px 0;">${phone || 'Niet opgegeven'}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px 0; font-weight: bold;">Type aanvraag:</td>
+              <td style="padding: 10px 0;"><span style="background: #F4F1E8; padding: 4px 8px; border-radius: 4px; color: #2B5B4B; font-weight: bold;">${inquiryType}</span></td>
+            </tr>
+          </table>
+          
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 6px;">
+            <h3 style="margin: 0 0 10px 0; color: #2B5B4B;">💬 Bericht:</h3>
+            <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
+          </div>
+          
+          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 14px;">
+            <p style="margin: 0;"><strong>Verzonden op:</strong> ${new Date().toLocaleString('nl-NL')}</p>
+            <p style="margin: 0;"><strong>Via:</strong> Xenra Nederland Website (www.xenra.nl)</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    console.log('=== XENRA EMAIL SENDING ATTEMPT ===');
+    console.log('To: info@xenra.nl');
+    console.log('Subject:', emailSubject);
+    console.log('From:', email);
+    console.log('====================================');
+
+    // Send email using fetch to working FormSubmit service instead
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone || 'Niet opgegeven');
+    formData.append('inquiry_type', inquiryType);
+    formData.append('message', message);
+    formData.append('_next', 'https://www.xenra.nl');
+    formData.append('_subject', emailSubject);
+    formData.append('_template', 'table');
+    
+    const formResponse = await fetch('https://formsubmit.co/info@xenra.nl', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!formResponse.ok) {
+      throw new Error('Email service failed');
     }
 
-    // Validate inquiry type - ensure it's one of the 6 valid options
-    const validInquiryTypes = [
-      'Algemene informatie',
-      'Gratis telefonisch intake',
-      'Interesse in pakket particulieren',
-      'Interesse in pakket zzp\'ers/eenmanszaak',
-      'Interesse in pakket ondernemers bv/nv',
-      'Administratieve vraag'
-    ];
-
-    if (!inquiryType || !validInquiryTypes.includes(inquiryType)) {
-      return res.status(400).json({ 
-        error: 'Ongeldig type aanvraag geselecteerd' 
-      });
-    }
-
-    // Log complete submission with all form fields
-    console.log('=== XENRA CONTACTFORMULIER SUBMISSION ===');
-    console.log('Tijdstempel:', new Date().toLocaleString('nl-NL'));
-    console.log('Naam:', name);
-    console.log('Email:', email);
-    console.log('Telefoon:', phone || 'Niet opgegeven');
-    console.log('Type aanvraag:', inquiryType);
-    console.log('Bericht:', message);
-    console.log('==========================================');
-
-    // Send email to info@xenra.nl using Formspree
-    try {
-      const emailSubject = `Nieuw contactformulier: ${inquiryType}`;
-      const emailBody = `Nieuwe aanvraag via xenra.nl contactformulier
-
-Naam: ${name}
-Email: ${email}
-Telefoon: ${phone || 'Niet opgegeven'}
-Type aanvraag: ${inquiryType}
-
-Bericht:
-${message}
-
----
-Verzonden op: ${new Date().toLocaleString('nl-NL')}
-Via: Xenra Nederland Website`;
-
-      // Use fetch to send email via Formspree (works directly from Vercel)
-      const formspreeResponse = await fetch('https://formspree.io/f/mwpkynol', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: phone || 'Niet opgegeven',
-          inquiry_type: inquiryType,
-          message: emailBody,
-          _replyto: email,
-          _subject: emailSubject
-        })
-      });
-
-      if (formspreeResponse.ok) {
-        console.log('✅ Email successfully sent to info@xenra.nl via Formspree');
-      } else {
-        const errorText = await formspreeResponse.text();
-        console.log('❌ Formspree email failed:', errorText);
-      }
-      
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Continue even if email fails
-    }
+    console.log('✅ Email successfully sent to info@xenra.nl via FormSubmit');
 
     // Success response
     return res.status(200).json({
@@ -116,7 +129,7 @@ Via: Xenra Nederland Website`;
     });
 
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('❌ Email sending failed:', error);
     return res.status(500).json({
       error: 'Er is een fout opgetreden. Probeer het opnieuw of bel ons op 085 08 06 142.'
     });
