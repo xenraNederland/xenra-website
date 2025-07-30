@@ -1,5 +1,5 @@
-export default async function handler(req, res) {
-  // Enable CORS
+export default function handler(req, res) {
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -32,36 +32,25 @@ export default async function handler(req, res) {
       });
     }
 
-    // Log the form submission (for debugging)
-    console.log('Contact form submission:', {
+    // Log the submission for debugging
+    console.log('Xenra contact form submission:', {
       name,
       email,
-      phone,
-      inquiryType,
+      phone: phone || 'Niet opgegeven',
+      inquiryType: inquiryType || 'Algemene informatie',
       message,
       timestamp: new Date().toISOString()
     });
 
-    // For Vercel deployment, we'll send an email directly using a service
-    // In a real deployment, you'd integrate with your email service here
-    
-    // Success response
-    res.status(200).json({
+    // Return success response
+    return res.status(200).json({
       success: true,
-      message: 'Bedankt voor uw bericht. Wij zullen z.s.m. reageren op uw mail.',
-      contact: {
-        name,
-        email,
-        phone,
-        inquiryType,
-        message,
-        createdAt: new Date().toISOString()
-      }
+      message: 'Bedankt voor uw bericht. Wij zullen z.s.m. reageren op uw mail.'
     });
 
   } catch (error) {
     console.error('Contact form error:', error);
-    res.status(500).json({ 
+    return res.status(500).json({ 
       error: 'Er is een fout opgetreden bij het versturen van uw bericht' 
     });
   }
