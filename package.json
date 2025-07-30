@@ -1,16 +1,15 @@
 {
-  "name": "xenra-website",
+  "name": "xenra-nederland-website",
   "version": "1.0.0",
-  "description": "Xenra Nederland website",
-  "type": "module",
-  "engines": {
-    "node": ">=18"
-  },
+  "description": "Professional estate management website for Xenra Nederland",
+  "main": "index.html",
   "scripts": {
-    "build": "echo 'Static build completed'",
-    "start": "echo 'Static site ready'"
+    "start": "node api/contact.js"
   },
-  "keywords": ["xenra", "nalatenschap", "estate"],
+  "engines": {
+    "node": "18.x"
+  },
+  "keywords": ["nalatenschap", "estate", "management", "nederland"],
   "author": "Xenra Nederland",
-  "license": "ISC"
+  "license": "MIT"
 }

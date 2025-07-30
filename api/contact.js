@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -11,16 +11,16 @@ export default function handler(req, res) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { name, email, phone, inquiryType, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
 
     // Basic validation
     if (!name || !email || !message) {
       return res.status(400).json({ 
-        error: 'Naam, email en bericht zijn verplicht' 
+        message: 'Naam, email en bericht zijn verplicht' 
       });
     }
 
@@ -28,30 +28,34 @@ export default function handler(req, res) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ 
-        error: 'Ongeldig email adres' 
+        message: 'Ongeldig email adres' 
       });
     }
 
-    // Log the submission for debugging
-    console.log('Xenra contact form submission:', {
+    // Log the contact form submission (in production you'd save to database or send email)
+    console.log('Contact form submission:', {
       name,
       email,
       phone: phone || 'Niet opgegeven',
-      inquiryType: inquiryType || 'Algemene informatie',
+      subject: subject || 'Algemene informatie',
       message,
       timestamp: new Date().toISOString()
     });
 
-    // Return success response
-    return res.status(200).json({
-      success: true,
-      message: 'Bedankt voor uw bericht. Wij zullen z.s.m. reageren op uw mail.'
+    // In production, here you would:
+    // 1. Save to database
+    // 2. Send email notification to info@xenra.nl
+    // 3. Send confirmation email to user
+
+    return res.status(200).json({ 
+      message: 'Bedankt voor uw bericht. Wij nemen zo spoedig mogelijk contact met u op.',
+      success: true
     });
 
   } catch (error) {
     console.error('Contact form error:', error);
     return res.status(500).json({ 
-      error: 'Er is een fout opgetreden bij het versturen van uw bericht' 
+      message: 'Er is een fout opgetreden. Probeer het later opnieuw.' 
     });
   }
 }
