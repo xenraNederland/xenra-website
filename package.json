@@ -1,0 +1,13 @@
+{
+  "name": "xenra-website",
+  "version": "1.0.0",
+  "description": "Xenra Nederland website",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "start": "echo 'Static site'"
+  },
+  "keywords": ["xenra", "nalatenschap", "estate"],
+  "author": "Xenra Nederland",
+  "license": "ISC"
+}

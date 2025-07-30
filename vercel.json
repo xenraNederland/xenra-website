@@ -1,6 +1,13 @@
 {
-  "framework": null,
-  "buildCommand": null,
-  "devCommand": null,
-  "installCommand": null
+  "functions": {
+    "api/contact.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

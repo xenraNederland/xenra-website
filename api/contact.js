@@ -1,12 +1,13 @@
-// Eenvoudige Vercel API - formulier data naar console + success response
 export default async function handler(req, res) {
-  // CORS headers
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
 
   if (req.method !== 'POST') {
@@ -16,56 +17,52 @@ export default async function handler(req, res) {
   try {
     const { name, email, phone, inquiryType, message } = req.body;
 
-    // Validate required fields
-    if (!name || !email || !inquiryType || !message) {
+    // Basic validation
+    if (!name || !email || !message) {
       return res.status(400).json({ 
-        error: 'Alle velden zijn verplicht behalve telefoonnummer' 
+        error: 'Naam, email en bericht zijn verplicht' 
       });
     }
 
-    // Log alle data voor handmatige verwerking
-    console.log('=== NIEUW CONTACT FORMULIER ===');
-    console.log('Tijdstip:', new Date().toLocaleString('nl-NL'));
-    console.log('Naam:', name);
-    console.log('Email:', email);
-    console.log('Telefoon:', phone || 'Niet opgegeven');
-    console.log('Type aanvraag:', inquiryType);
-    console.log('Bericht:', message);
-    console.log('================================');
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        error: 'Ongeldig email adres' 
+      });
+    }
 
-    // Maak een bestand met de formulier data
-    const formData = {
-      timestamp: new Date().toISOString(),
+    // Log the form submission (for debugging)
+    console.log('Contact form submission:', {
       name,
       email,
-      phone: phone || 'Niet opgegeven',
+      phone,
       inquiryType,
       message,
-      processed: false
-    };
+      timestamp: new Date().toISOString()
+    });
 
-    // Log als JSON voor makkelijke copy-paste
-    console.log('JSON DATA:', JSON.stringify(formData, null, 2));
-
+    // For Vercel deployment, we'll send an email directly using a service
+    // In a real deployment, you'd integrate with your email service here
+    
     // Success response
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: 'Bedankt voor uw bericht. Wij zullen z.s.m. reageren op uw mail.',
-      data: {
+      contact: {
         name,
         email,
+        phone,
         inquiryType,
-        timestamp: new Date().toISOString(),
-        emailSent: true,
-        note: 'Formulier ontvangen en wordt verwerkt'
+        message,
+        createdAt: new Date().toISOString()
       }
     });
 
   } catch (error) {
-    console.error('❌ Formulier error:', error);
-    
-    return res.status(500).json({
-      error: 'Er is een fout opgetreden. Probeer het opnieuw of bel ons op 085 08 06 142.'
+    console.error('Contact form error:', error);
+    res.status(500).json({ 
+      error: 'Er is een fout opgetreden bij het versturen van uw bericht' 
     });
   }
 }
