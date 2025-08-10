@@ -19,11 +19,7 @@
       gtag('config', 'G-M3JCSZ0T9Y', {
         page_title: 'Xenra Nederland - Nalatenschap Regelen',
         page_location: window.location.href,
-        send_page_view: true,
-        custom_map: {
-          'custom_parameter_1': 'business_type',
-          'custom_parameter_2': 'content_group'
-        }
+        send_page_view: true
       });
       
       // Enhanced tracking functions
@@ -34,7 +30,6 @@
           'form_location': 'website'
         });
         
-        // Also push to dataLayer for GTM
         window.dataLayer.push({
           'event': 'contact_form_submit',
           'form_type': formType,
@@ -42,7 +37,6 @@
         });
       };
       
-      // Calculator tracking function
       window.trackCalculator = function(action, value) {
         gtag('event', 'calculator_interaction', {
           'event_category': 'tools',
@@ -50,7 +44,6 @@
           'value': value
         });
         
-        // Also push to dataLayer for GTM
         window.dataLayer.push({
           'event': 'calculator_interaction',
           'calculator_action': action,
@@ -58,380 +51,343 @@
         });
       };
     </script>
-    <!-- End Google Analytics -->
     
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
-    
-    <!-- Performance & SEO Optimization -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="format-detection" content="telephone=yes" />
-    <meta name="theme-color" content="#7c3aed" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Xenra Nederland" />
-    
-    <!-- Additional SEO Enhancement -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="Xenra Nederland" />
-    <meta name="msapplication-TileColor" content="#7c3aed" />
-    <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-tooltip" content="Xenra Nederland - Nalatenschap Regelen" />
-    <meta name="msapplication-starturl" content="/" />
-    
-    <!-- Security & Privacy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://replit.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    
-    <!-- Page Classification -->
-    <meta name="page-topic" content="Nalatenschapbeheer Nederland" />
-    <meta name="page-type" content="Homepage" />
-    <meta name="audience" content="Particulieren, ZZP, BV-houders" />
-    
-    <!-- Preconnect for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    
-    <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    
-    <!-- Advanced SEO Meta Tags - Maximum Visibility -->
-    <title>Nalatenschap Regelen Nederland | Xenra - Nalatenschapbeheer voor Particulier, ZZP en BV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nalatenschap Regelen Nederland | Xenra - Nalatenschapbeheer</title>
     <meta name="description" content="Nalatenschap regelen? Xenra Nederland regelt vooraf alles zodat uw nabestaanden zorgeloos afscheid nemen. Vraag gratis advies aan!" />
     
-    <!-- Extended Keywords for Maximum Coverage -->
-    <meta name="keywords" content="nalatenschap regelen nederland, nalatenschapbeheer, nalatenschap particulier, zzp nalatenschap, bv nalatenschap, testamentair executeur ondersteuning, overlijden administratie, nabestaanden ontzorgen, erfenis regelen, testament maken, wilsbeschikking, estate planning nederland, nalatenschap afwikkeling, administratie na overlijden, nalatenschap verzekering, erfrechtadvies, boedel afwikkeling, nalatenschap planning, testamentair executeur hulp" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Business & Authority Tags -->
-    <meta name="author" content="Xenra Nederland" />
-    <meta name="publisher" content="Xenra Nederland - Specialist Nalatenschapbeheer" />
-    <meta name="copyright" content="© 2025 Xenra Nederland" />
-    <meta name="distribution" content="global" />
-    <meta name="rating" content="general" />
-    <meta name="revisit-after" content="7 days" />
-    
-    <!-- Advanced Robots & Indexing -->
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1, max-image-preview:standard" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    <meta name="bingbot" content="index, follow" />
-    
-    <!-- Canonical & Hreflang -->
-    <link rel="canonical" href="https://xenra.nl/" />
-    <link rel="alternate" hreflang="nl" href="https://xenra.nl/" />
-    <link rel="alternate" hreflang="nl-NL" href="https://xenra.nl/" />
-    <link rel="alternate" hreflang="x-default" href="https://xenra.nl/" />
-    
-    <!-- Geographic & Language Targeting -->
-    <meta name="geo.region" content="NL" />
-    <meta name="geo.placename" content="Nederland" />
-    <meta name="geo.position" content="52.3676;4.9041" />
-    <meta name="ICBM" content="52.3676, 4.9041" />
-    <meta name="language" content="Dutch" />
-    <meta name="content-language" content="nl" />
-    
-    <!-- Business Information -->
-    <meta name="classification" content="Nalatenschapbeheer, Juridische Dienstverlening" />
-    <meta name="category" content="Legal Services, Estate Planning, Administrative Support" />
-    <meta name="coverage" content="Nederland" />
-    <meta name="distribution" content="Nederland" />
-    <meta name="target" content="Particulieren, ZZP, BV-houders" />
-    
-    <!-- Contact & Local Business -->
-    <meta name="contact" content="085 08 06 142" />
-    <meta name="reply-to" content="info@xenra.nl" />
-    <meta name="owner" content="Xenra Nederland" />
-    
-    <!-- Advanced Open Graph / Social Media -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://xenra.nl/" />
-    <meta property="og:title" content="Nalatenschap Regelen Nederland | Xenra - Vanaf €14,95/maand" />
-    <meta property="og:description" content="Nalatenschap regelen? Xenra Nederland regelt vooraf alles zodat uw nabestaanden zorgeloos afscheid nemen. Vraag gratis advies aan!" />
-    <meta property="og:image" content="https://xenra.nl/logo-xenra-nederland.png" />
-    <meta property="og:image:secure_url" content="https://xenra.nl/logo-xenra-nederland.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Xenra Nederland - Nalatenschap Regelen" />
-    <meta property="og:site_name" content="Xenra Nederland" />
-    <meta property="og:locale" content="nl_NL" />
-    <meta property="og:locale:alternate" content="en_US" />
-    
-    <!-- Article/Business Specific -->
-    <meta property="article:author" content="Xenra Nederland" />
-    <meta property="article:publisher" content="https://xenra.nl" />
-    <meta property="business:contact_data:street_address" content="Nederland" />
-    <meta property="business:contact_data:locality" content="Nederland" />
-    <meta property="business:contact_data:region" content="Nederland" />
-    <meta property="business:contact_data:postal_code" content="" />
-    <meta property="business:contact_data:country_name" content="Nederland" />
-    <meta property="business:contact_data:phone_number" content="+31850806142" />
-    <meta property="business:contact_data:website" content="https://xenra.nl" />
-    
-    <!-- Advanced Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@xenra_nederland" />
-    <meta name="twitter:creator" content="@xenra_nederland" />
-    <meta name="twitter:url" content="https://xenra.nl/" />
-    <meta name="twitter:title" content="Nalatenschap Regelen Nederland | Xenra - Vanaf €14,95/maand" />
-    <meta name="twitter:description" content="Nalatenschap regelen? Xenra Nederland regelt vooraf alles zodat uw nabestaanden zorgeloos afscheid nemen. Vraag gratis advies aan!" />
-    <meta name="twitter:image" content="https://xenra.nl/logo-xenra-nederland.png" />
-    <meta name="twitter:image:alt" content="Xenra Nederland - Nalatenschap Regelen" />
-    <meta name="twitter:domain" content="xenra.nl" />
-    
-    <!-- Additional Social Platforms -->
-    <meta property="fb:app_id" content="xenra-nederland" />
-    <meta name="pinterest-rich-pin" content="true" />
-    <meta name="linkedin:owner" content="Xenra Nederland" />
-    
-    <!-- Enhanced Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Xenra Nederland",
-      "url": "https://xenra.nl",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://xenra.nl/logo-xenra-nederland.png",
-        "width": "300",
-        "height": "100"
-      },
-      "description": "Xenra Nederland is specialist in nalatenschapbeheer en administratieve ondersteuning. Wij helpen particulieren, ZZP'ers en BV-houders bij het vooraf regelen van hun nalatenschap voor rust en zekerheid van nabestaanden.",
-      "foundingDate": "2020",
-      "slogan": "Regel het goed voor de mensen van wie je houdt",
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+31-85-080-6142",
-          "contactType": "customer service",
-          "areaServed": "NL",
-          "availableLanguage": ["Dutch"],
-          "hoursAvailable": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "17:00"
-          }
-        }
-      ],
-      "sameAs": [
-        "https://xenra.nl"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "NL",
-        "addressLocality": "Nederland"
-      },
-      "serviceType": ["Nalatenschapbeheer", "Administratieve ondersteuning", "Testamentair executeur ondersteuning", "Erfenis regeling", "Testament opstelling", "Nalatenschap planning"],
-      "priceRange": "€14.95 - €29.95",
-      "paymentAccepted": ["Cash", "Credit Card", "Invoice", "Bank Transfer"],
-      "currenciesAccepted": "EUR",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Nederland"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Nalatenschapbeheer Pakketten",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Particulieren Pakket",
-              "description": "Nalatenschapbeheer voor particulieren"
-            }
-          },
-          {
-            "@type": "Offer", 
-            "itemOffered": {
-              "@type": "Service",
-              "name": "ZZP Pakket",
-              "description": "Nalatenschapbeheer voor ZZP'ers en Eenmanszaken"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service", 
-              "name": "BV Pakket",
-              "description": "Nalatenschapbeheer voor BV-houders"
-            }
-          }
-        ]
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "150",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5"
-          },
-          "author": {
-            "@type": "Person",
-            "name": "Tevreden Klant"
-          },
-          "reviewBody": "Uitstekende service bij het regelen van mijn nalatenschap."
-        }
-      ]
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "url": "https://xenra.nl",
-      "name": "Xenra Nederland",
-      "alternateName": ["Xenra", "Xenra Nederland Nalatenschap"],
-      "description": "Nalatenschap regelen voor particulieren, ZZP'ers en BV-houders",
-      "keywords": "nalatenschap regelen, nalatenschapbeheer, erfenis, testament, estate planning",
-      "inLanguage": "nl-NL",
-      "isAccessibleForFree": true,
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://xenra.nl/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "mainEntity": {
-        "@type": "Organization",
-        "@id": "https://xenra.nl/#organization"
+    <style>
+      /* Custom Xenra colors */
+      :root {
+        --xenra-beige: #f5f3f0;
+        --xenra-teal: #2dd4bf;
+        --xenra-green: #059669;
+        --xenra-orange: #f97316;
+        --xenra-dark: #1f2937;
       }
-    }
-    </script>
-    
-    <!-- Professional Service Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "@id": "https://xenra.nl/#service",
-      "name": "Xenra Nederland Nalatenschapbeheer",
-      "url": "https://xenra.nl",
-      "description": "Specialist in nalatenschapbeheer en administratieve ondersteuning bij overlijden. Wij helpen particulieren, ZZP'ers en BV-houders bij het vooraf regelen van hun nalatenschap.",
-      "provider": {
-        "@type": "Organization",
-        "@id": "https://xenra.nl/#organization"
-      },
-      "areaServed": {
-        "@type": "Country",
-        "name": "Nederland"
-      },
-      "serviceType": "Nalatenschapbeheer",
-      "category": "Legal Services",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Nalatenschapbeheer Diensten",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "name": "Gratis Adviesgesprek",
-            "description": "Vrijblijvend gesprek over uw nalatenschapwensen",
-            "price": "0",
-            "priceCurrency": "EUR"
-          },
-          {
-            "@type": "Offer", 
-            "name": "Particulieren Pakket",
-            "description": "Compleet nalatenschapbeheer voor particulieren",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "14.95",
-              "priceCurrency": "EUR",
-              "unitText": "per maand"
-            }
-          }
-        ]
+      
+      .bg-xenra-beige { background-color: var(--xenra-beige); }
+      .text-xenra-dark { color: var(--xenra-dark); }
+      .bg-xenra-teal { background-color: var(--xenra-teal); }
+      .bg-xenra-green { background-color: var(--xenra-green); }
+      .bg-xenra-orange { background-color: var(--xenra-orange); }
+      
+      /* Smooth scrolling */
+      html { scroll-behavior: smooth; }
+      
+      /* Blog article styles */
+      .blog-content {
+        line-height: 1.7;
       }
-    }
-    </script>
-    
-    <!-- Local Business Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://xenra.nl/#localbusiness",
-      "name": "Xenra Nederland",
-      "image": "https://xenra.nl/logo-xenra-nederland.png",
-      "telephone": "+31-85-080-6142",
-      "email": "info@xenra.nl",
-      "url": "https://xenra.nl",
-      "priceRange": "€14.95-€29.95",
-      "paymentAccepted": ["Cash", "Credit Card", "Invoice", "Bank Transfer"],
-      "currenciesAccepted": "EUR",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "NL",
-        "addressLocality": "Nederland"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "52.3676",
-        "longitude": "4.9041"
-      },
-      "openingHours": "Mo-Fr 09:00-17:00",
-      "sameAs": [
-        "https://xenra.nl"
-      ]
-    }
-    </script>
-    
-    <!-- FAQ Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Wat is een nalatenschap?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Een nalatenschap bestaat uit alle bezittingen en schulden die iemand nalaat bij overlijden. Dit omvat bankrekeningen, verzekeringen, bezittingen, maar ook verplichtingen en administratieve taken."
-          }
-        },
-        {
-          "@type": "Question", 
-          "name": "Waarom nalatenschap vooraf regelen?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Door uw nalatenschap vooraf te regelen, voorkomt u dat uw nabestaanden in een emotionele periode complexe administratieve taken moeten uitvoeren. Het geeft rust en zekerheid voor iedereen."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Voor wie is nalatenschapbeheer geschikt?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Xenra Nederland helpt particulieren, ZZP'ers en BV-houders bij het regelen van hun nalatenschap. We hebben speciale pakketten voor elke doelgroep."
-          }
-        }
-      ]
-    }
-    </script>
-    <script type="module" crossorigin src="/assets/index-D33h89VN.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CRV5U1JA.css">
+      
+      .blog-content p {
+        margin-bottom: 1rem;
+      }
+    </style>
   </head>
-  <body>
+  
+  <body class="bg-white font-sans">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5GVSVHP4"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
-    <div id="root"></div>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo -->
+          <div class="flex-shrink-0">
+            <img src="logo-xenra-nederland.png" alt="Xenra Nederland" class="h-12 w-auto">
+          </div>
+          
+          <!-- Navigation -->
+          <nav class="hidden md:flex items-center space-x-8">
+            <a href="#home" class="text-xenra-dark hover:text-xenra-teal transition-colors">Home</a>
+            <a href="#over-xenra" class="text-xenra-dark hover:text-xenra-teal transition-colors">Over Xenra</a>
+            <a href="#diensten" class="text-xenra-dark hover:text-xenra-teal transition-colors">Diensten</a>
+            <a href="#tarieven" class="text-xenra-dark hover:text-xenra-teal transition-colors">Tarieven</a>
+            <a href="#blog" class="text-xenra-dark hover:text-xenra-teal transition-colors">Blog</a>
+            <a href="#contact" class="text-xenra-dark hover:text-xenra-teal transition-colors">Contact</a>
+          </nav>
+          
+          <!-- CTA Button -->
+          <div class="hidden md:block">
+            <a href="tel:0850806142" class="bg-xenra-orange text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+              085 08 06 142
+            </a>
+          </div>
+          
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button id="mobile-menu-btn" class="text-xenra-dark p-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#home" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Home</a>
+            <a href="#over-xenra" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Over Xenra</a>
+            <a href="#diensten" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Diensten</a>
+            <a href="#tarieven" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Tarieven</a>
+            <a href="#blog" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Blog</a>
+            <a href="#contact" class="block px-3 py-2 text-xenra-dark hover:bg-gray-50">Contact</a>
+            <a href="tel:0850806142" class="block px-3 py-2 bg-xenra-orange text-white rounded-lg font-semibold">085 08 06 142</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Home Section -->
+      <section id="home" class="py-20 bg-xenra-beige">
+        <div class="container mx-auto px-4 text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-xenra-dark mb-6">
+            Nalatenschap Regelen<br>
+            <span class="text-xenra-teal">Voor Nederland</span>
+          </h1>
+          <p class="text-xl text-xenra-dark mb-8 max-w-3xl mx-auto">
+            Xenra Nederland regelt vooraf alles zodat uw nabestaanden zorgeloos afscheid kunnen nemen. 
+            Nalatenschapbeheer en administratieve ondersteuning voor particulieren, ZZP'ers en BV-houders.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact" class="bg-xenra-teal text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-teal-600 transition-colors">
+              Gratis Adviesgesprek
+            </a>
+            <a href="tel:0850806142" class="bg-xenra-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-orange-600 transition-colors">
+              085 08 06 142
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Section -->
+      <section id="blog" class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-xenra-dark mb-4">Blog</h2>
+            <p class="text-xl text-gray-600">Verhalen uit de praktijk</p>
+          </div>
+
+          <!-- Michelle's Blog Post -->
+          <article class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
+            <!-- Article Header -->
+            <div class="p-8 pb-6">
+              <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                Waarom we verhalen delen
+              </h2>
+
+              <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                Nalatenschap voelt vaak als een doolhof - veel regels, veel emoties, weinig duidelijkheid. 
+                Daarom delen wij echte verhalen van mensen die dit pad hebben bewandeld.
+              </p>
+            </div>
+
+            <!-- Article Content -->
+            <div class="px-8 pb-8">
+              <div class="flex flex-col md:flex-row gap-8">
+                <!-- Michelle's Photo -->
+                <div class="md:w-40 flex-shrink-0">
+                  <img 
+                    src="michelle.png" 
+                    alt="Michelle Leemhuis" 
+                    class="w-40 h-56 object-cover rounded-lg shadow-md mx-auto md:mx-0"
+                  />
+                </div>
+                
+                <!-- Article Text -->
+                <div class="flex-1 blog-content">
+                  <p>
+                    <strong>Een verhaal dat ik onlangs hoorde, raakte me diep.</strong> Een vrouw van 58 verloor onverwacht haar man. 
+                    Naast het immense verdriet kwam er een berg aan administratie op haar af. "Ik wist niet eens waar hij zijn 
+                    verzekeringen had," vertelde ze me. "Laat staan wat er allemaal geregeld moest worden."
+                  </p>
+
+                  <p>
+                    Dit is precies waarom ik bij Xenra werk. Niet voor de cijfers of de processen, maar voor de mensen achter elke 
+                    nalatenschap. Voor de partner die plotseling alleen staat. Voor de kinderen die hun ouders willen helpen, 
+                    maar niet weten hoe.
+                  </p>
+
+                  <p>
+                    <strong>Elke nalatenschap vertelt een verhaal.</strong> Van liefde, van zorg, van mensen die het beste willen voor 
+                    degenen die zij achterlaten. Maar ook van verwarring, stress en soms ruzie over dingen die eigenlijk niet zouden 
+                    moeten uitmaken.
+                  </p>
+
+                  <p>
+                    Daarom delen we deze verhalen met jullie. Niet om drama te creëren, maar om te laten zien dat jullie niet alleen 
+                    staan. Dat het oké is om je overweldigd te voelen. En dat er altijd een weg doorheen is - vaak eenvoudiger dan je denkt.
+                  </p>
+
+                  <p>
+                    <strong>Want dat is wat we bij Xenra geloven:</strong> nalatenschap regelen hoeft niet ingewikkeld te zijn. 
+                    Met de juiste voorbereiding en begeleiding wordt het een geschenk van rust voor jezelf en je dierbaren.
+                  </p>
+
+                  <p>
+                    Heb je vragen naar aanleiding van dit verhaal? Bel me gerust. Ik help je graag op weg.
+                  </p>
+
+                  <p class="text-gray-600 italic">
+                    Warme groet,<br>
+                    Michelle
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date -->
+            <div class="px-8 py-6 border-t border-gray-50 bg-gray-50/50">
+              <div class="text-sm text-gray-500">
+                augustus 2025
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-16 bg-xenra-beige">
+        <div class="container mx-auto px-4 max-w-4xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-xenra-dark mb-4">Contact</h2>
+            <p class="text-xl text-gray-600">We staan klaar om u te helpen</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <!-- Phone -->
+            <div class="bg-white rounded-lg p-8 shadow-lg">
+              <div class="bg-xenra-orange text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-xenra-dark mb-2">Telefoon</h3>
+              <p class="text-2xl font-bold text-xenra-dark">085 08 06 142</p>
+              <p class="text-gray-600">Ma t/m za: 07:00 - 20:00</p>
+            </div>
+
+            <!-- Email -->
+            <div class="bg-white rounded-lg p-8 shadow-lg">
+              <div class="bg-xenra-teal text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-xenra-dark mb-2">Email</h3>
+              <p class="text-xl font-bold text-xenra-dark">info@xenra.nl</p>
+              <p class="text-gray-600">We reageren binnen 24 uur</p>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="bg-white rounded-lg p-8 shadow-lg">
+              <div class="bg-xenra-green text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-xenra-dark mb-2">WhatsApp</h3>
+              <p class="text-xl font-bold text-xenra-dark">06-44 58 49 77</p>
+              <p class="text-gray-600">Direct contact</p>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center bg-white rounded-lg p-8 shadow-lg">
+            <h3 class="text-2xl font-semibold text-xenra-dark mb-4">Geen bezoekadres</h3>
+            <p class="text-lg text-gray-600">
+              Xenra Nederland is prima telefonisch en per mail bereikbaar, maar wij hebben geen bezoekadres.
+              Wij staan klaar om u te helpen met al uw vragen over nalatenschapbeheer en administratieve ondersteuning.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-xenra-dark text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <img src="logo-xenra-nederland.png" alt="Xenra Nederland" class="h-12 w-auto mb-4 brightness-0 invert">
+            <p class="text-gray-300">
+              Nalatenschapbeheer en administratieve ondersteuning voor heel Nederland.
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Contact</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li>Telefoon: 085 08 06 142</li>
+              <li>Email: info@xenra.nl</li>
+              <li>WhatsApp: 06-44 58 49 77</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Diensten</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li>Nalatenschapbeheer</li>
+              <li>Administratieve ondersteuning</li>
+              <li>Testamentair executeur hulp</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Openingstijden</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li>Maandag t/m zaterdag</li>
+              <li>07:00 - 20:00</li>
+              <li>Zondag: gesloten</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+          <p>&copy; 2025 Xenra Nederland. Alle rechten voorbehouden.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Track page load
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href
+      });
+
+      console.log('🚀 Xenra Nederland website loaded');
+      console.log('📊 Google Analytics tracking active');
+    </script>
   </body>
 </html>

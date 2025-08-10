@@ -1,45 +1,59 @@
-# Xenra Nederland - 100% GEGARANDEERD GEEN ERRORS
+# Xenra Nederland Website
 
-## 🎯 GARANTIE: DEZE VERSIE WERKT ALTIJD
+Professionele website voor Xenra Nederland - specialist in nalatenschapbeheer en administratieve ondersteuning.
 
-### ✅ WAT DEZE VERSIE BEVAT:
-- Volledige Xenra Nederland website (React app)
-- Alle team foto's en content
-- Premium calculator
-- Contact informatie
-- SEO optimalisatie
-- Responsive design
+## Features
 
-### ❌ WAT DEZE VERSIE NIET BEVAT:
-- GEEN serverless functies
-- GEEN API endpoints  
-- GEEN vercel.json
-- GEEN runtime dependencies
-- NIETS wat errors kan veroorzaken
+- ✅ **Responsive design** - Werkt perfect op desktop, tablet en mobiel
+- ✅ **Google Analytics 4** - Volledige tracking geïmplementeerd (G-M3JCSZ0T9Y)
+- ✅ **Google Tag Manager** - GTM-5GVSVHP4 geïntegreerd
+- ✅ **SEO geoptimaliseerd** - Title tags, meta descriptions, structured data
+- ✅ **Blog sectie** - Michelle's verhaal "Waarom we verhalen delen"
+- ✅ **Contact informatie** - Telefoon 085 08 06 142, email info@xenra.nl
+- ✅ **Performance** - Snelle laadtijden met Tailwind CSS
+- ✅ **Accessibility** - Toegankelijke navigatie en content
 
-## 🚀 DEPLOYMENT (100% SUCCESS RATE):
+## Blog Layout
 
-### Vercel:
-1. Upload alle bestanden naar GitHub repository
-2. Vercel → New Project → selecteer repository  
-3. Framework: **Other**
-4. Build Command: (leeg laten)
-5. Output Directory: (leeg laten)
-6. Deploy → **WERKT GEGARANDEERD**
+- **Geen categoriefilters** - Direct naar Michelle's verhaal
+- **Foto positie** - Michelle's portretfoto (w-40 h-56) naast tekst gepositioneerd
+- **Minimale metadata** - Alleen "augustus 2025" datum onderaan
+- **Schone opmaak** - Focus op de content zonder afleidingen
 
-### Netlify (alternatief):
-1. Sleep hele map naar Netlify
-2. Deploy → **WERKT GEGARANDEERD**
+## Contact Informatie
 
-## 📧 Contact Formulier:
-Gebruikt alleen HTML/JavaScript - geen server nodig.
-Alle berichten komen direct in console log.
+- **Telefoon**: 085 08 06 142 (Ma t/m za: 07:00 - 20:00)
+- **Email**: info@xenra.nl 
+- **WhatsApp**: 06-44 58 49 77
+- **Bezoekadres**: Geen - alleen telefonisch en per mail bereikbaar
 
-## 🔒 GARANTIE:
-Deze versie kan NOOIT falen omdat:
-- Alleen statische bestanden
-- Geen runtime code
-- Geen external dependencies
-- Geen API calls die kunnen crashen
+## Deployment naar GitHub Pages
 
-**100% WERKINGSGARANTIE - GEEN ERRORS MOGELIJK!**
+1. Upload alle bestanden naar uw GitHub repository
+2. Ga naar Settings > Pages
+3. Selecteer "Deploy from a branch"
+4. Kies "main" branch en "/ (root)" folder
+5. Klik "Save"
+
+Uw website is dan binnen enkele minuten live op: `https://[username].github.io/[repository-name]`
+
+## Bestanden
+
+- `index.html` - Complete website (single page)
+- `michelle.png` - Michelle's portretfoto
+- `logo-xenra-nederland.png` - Xenra logo
+- `README.md` - Deze documentatie
+
+## Google Analytics
+
+De website heeft volledige Google Analytics 4 tracking:
+- **Measurement ID**: G-M3JCSZ0T9Y
+- **GTM Container**: GTM-5GVSVHP4
+- **Page views** automatisch getrackt
+- **Contact formulier** tracking functions beschikbaar
+
+Analytics data verschijnt binnen 24-48 uur in uw Google Analytics dashboard.
+
+---
+
+© 2025 Xenra Nederland - Alle rechten voorbehouden
